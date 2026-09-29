@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Academy | Scale Your STR Business</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#050B14',
+                            800: '#0F172A',
+                            700: '#1E293B',
+                        },
+                        text: {
+                            main: '#F8FAFC',
+                            muted: '#94A3B8'
+                        },
+                        accent: {
+                            DEFAULT: '#00E5FF',
+                            hover: '#00C6DD',
+                            glow: 'rgba(0, 229, 255, 0.15)'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #050B14;
+            color: #F8FAFC;
+            /* تم استبدال علامة الزائد بصورة عقار فاخر مدموجة باللون الداكن لتعبر عن الأكاديمية */
+            background-image: linear-gradient(rgba(5, 11, 20, 0.93), rgba(5, 11, 20, 0.97)), url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .glass-nav {
+            background: rgba(5, 11, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .card-glass {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.2) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050B14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans selection:bg-accent selection:text-navy-900 relative">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-navy-900 font-black text-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] group-hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-shadow">F</div>
+                <span class="text-xl font-bold tracking-tight text-white flex flex-col leading-none">
+                    Flex <span class="text-xs text-accent font-medium tracking-widest uppercase mt-0.5">Academy</span>
+                </span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-sm font-medium text-text-muted hover:text-white transition-colors">The Curriculum</a>
+                <a href="#" class="text-sm font-medium text-text-muted hover:text-white transition-colors">Base360</a>
+                <div class="w-px h-4 bg-white/10"></div>
+                <button onclick="openModal()" class="bg-white hover:bg-accent text-navy-900 font-bold text-sm px-6 py-2.5 rounded-full transition-all duration-300 shadow-[0_4px_14px_0_rgba(255,255,255,0.1)] hover:shadow-[0_4px_20px_0_rgba(0,229,255,0.4)] transform hover:-translate-y-0.5">
+                    Book Strategy Call
+                </button>
+            </div>
+            <div class="md:hidden text-2xl text-white">
+                <i class="ph ph-list"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden min-h-[95vh] flex items-center">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full flex flex-col lg:flex-row items-center gap-16">
+            
+            <div class="w-full lg:w-3/5 text-left opacity-0 animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 mb-8 px-3 py-1.5 rounded-full border border-accent/20 bg-accent/5 backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                    <span class="text-xs font-semibold tracking-[0.2em] text-accent uppercase">The Ultimate Operator's Playbook</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-[1.1]">
+                    Stop Managing. <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600">Start Scaling.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-text-muted max-w-xl mb-10 leading-relaxed font-light">
+                    The exact systems, software, and blueprint we used to scale <strong class="text-white font-medium">The Flex</strong> across 7 global cities. Built specifically for STR operators stuck at 5-30 units.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-start gap-4 w-full">
+                    <button onclick="openModal()" class="w-full sm:w-auto bg-accent hover:bg-white text-navy-900 font-bold text-base px-8 py-4 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] flex items-center justify-center gap-2 group">
+                        Book a Free Strategy Call
+                        <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <button class="w-full sm:w-auto bg-transparent hover:bg-white/5 border border-white/10 text-white font-medium text-base px-8 py-4 rounded-full transition-all flex items-center justify-center gap-2">
+                        <i class="ph ph-file-text text-text-muted"></i>
+                        Get the Free Checklist
+                    </button>
+                </div>
+                
+                <div class="mt-10 flex items-center gap-4 text-sm text-text-muted">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full border-2 border-navy-900 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-[10px] font-bold text-white shadow-sm relative z-30">JD</div>
+                        <div class="w-8 h-8 rounded-full border-2 border-navy-900 bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-[10px] font-bold text-white shadow-sm relative z-20">AS</div>
+                        <div class="w-8 h-8 rounded-full border-2 border-navy-900 bg-gradient-to-br from-accent to-teal-400 flex items-center justify-center text-[10px] font-bold text-navy-900 shadow-sm relative z-10">MK</div>
+                    </div>
+                    <p>Join <span class="text-white font-semibold">150+</span> operators scaling today.</p>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-2/5 relative opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-accent/20 filter blur-[120px] rounded-full pointer-events-none"></div>
+                
+                <div class="card-glass rounded-2xl p-2 shadow-2xl relative z-10 border-t border-white/20 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                    <div class="bg-[#0B1221] rounded-xl overflow-hidden border border-white/5 relative">
+                        <div class="px-4 py-3 border-b border-white/5 flex justify-between items-center bg-[#0F172A]">
+                            <div class="flex gap-2 items-center">
+                                <div class="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]"></div>
+                                <span class="ml-4 text-[10px] font-semibold text-text-muted/70 uppercase tracking-widest flex items-center gap-1"><i class="ph-fill ph-lock-key text-accent/50"></i> base360.ai</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-white/50 text-xs"><i class="ph-bold ph-bell"></i></div>
+                                <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-accent to-blue-500 border border-white/20"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex justify-between items-end mb-6">
+                                <div>
+                                    <p class="text-[10px] text-text-muted uppercase tracking-widest font-bold mb-1.5 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Live Portfolio MRR
+                                    </p>
+                                    <h3 class="text-4xl font-black text-white tracking-tight">€142,500<span class="text-lg text-white/30 font-medium">.00</span></h3>
+                                </div>
+                                <div class="flex items-center gap-1 text-[#27C93F] bg-[#27C93F]/10 px-2.5 py-1 rounded-md text-xs font-bold border border-[#27C93F]/20">
+                                    <i class="ph-bold ph-trend-up"></i> +24.5%
+                                </div>
+                            </div>
+                            
+                            <div class="relative h-32 mt-6 border-b border-white/10 pb-4 flex items-end justify-between gap-2">
+                                <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                                    <div class="w-full h-px bg-white/5 border-dashed"></div>
+                                    <div class="w-full h-px bg-white/5 border-dashed"></div>
+                                    <div class="w-full h-px bg-white/5 border-dashed"></div>
+                                </div>
+                                
+                                <div class="w-full bg-white/5 rounded-t-sm h-[40%] relative group z-10"><div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#0F172A] text-[10px] font-bold py-1 px-2 rounded hidden group-hover:block border border-white/10 text-white">€80k</div></div>
+                                <div class="w-full bg-white/10 rounded-t-sm h-[55%] z-10"></div>
+                                <div class="w-full bg-white/10 rounded-t-sm h-[70%] z-10"></div>
+                                <div class="w-full bg-accent/30 rounded-t-sm h-[60%] z-10"></div>
+                                <div class="w-full bg-accent/60 rounded-t-sm h-[85%] relative z-10">
+                                    <div class="absolute -top-3 -right-3 w-5 h-5 bg-[#0F172A] rounded-full border border-accent flex items-center justify-center shadow-[0_0_10px_rgba(0,229,255,0.3)]">
+                                        <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                                    </div>
+                                </div>
+                                <div class="w-full bg-gradient-to-t from-accent/50 to-accent rounded-t-sm h-[100%] shadow-[0_0_20px_rgba(0,229,255,0.4)] z-10 relative">
+                                    <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-navy-900 text-xs font-black py-1.5 px-3 rounded shadow-xl whitespace-nowrap">
+                                        €142.5k
+                                        <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white rotate-45"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-5 space-y-3">
+                                <div class="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400"><i class="ph-fill ph-buildings"></i></div>
+                                        <div>
+                                            <div class="text-sm font-bold text-white">Paris Portfolio</div>
+                                            <div class="text-[10px] text-text-muted">12 Active Units</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-bold text-white">92%</div>
+                                        <div class="text-[10px] text-[#27C93F]">Occ. Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute -bottom-8 -left-12 bg-[#0F172A] p-4 rounded-xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] z-20 flex items-center gap-4 animate-[bounce_6s_ease-in-out_infinite]">
+                    <div class="relative w-12 h-12 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 text-xl">
+                        <i class="ph-fill ph-check-circle"></i>
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0F172A]"></span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-text-muted font-bold tracking-widest uppercase mb-0.5">Automated Action</p>
+                        <p class="text-sm font-bold text-white">Check-in Sent: Unit 4B</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-y border-white/5 bg-navy-900 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 py-8 relative">
+            <div class="absolute left-0 top-0 w-24 h-full bg-gradient-to-r from-navy-900 to-transparent z-10"></div>
+            <div class="absolute right-0 top-0 w-24 h-full bg-gradient-to-l from-navy-900 to-transparent z-10"></div>
+            
+            <p class="text-center text-xs font-semibold text-text-muted tracking-widest uppercase mb-6">Operating across 7 cities & syncing seamlessly with</p>
+            
+            <div class="flex justify-between items-center opacity-50 grayscale hover:grayscale-0 transition-all duration-500 flex-wrap gap-8">
+                <h3 class="text-xl font-black font-serif">Airbnb</h3>
+                <h3 class="text-xl font-bold tracking-tighter">Booking.com</h3>
+                <h3 class="text-xl font-medium tracking-widest uppercase">VRBO</h3>
+                <h3 class="text-xl font-bold italic text-blue-300">Expedia</h3>
+                <h3 class="text-xl font-bold">Hostaway</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-b border-white/5 bg-navy-800/30">
+        <div class="max-w-7xl mx-auto px-6 py-10 md:py-16">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">7</div>
+                    <div class="text-sm text-text-muted font-medium uppercase tracking-wider">Global Cities</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">150+</div>
+                    <div class="text-sm text-text-muted font-medium uppercase tracking-wider">Units Managed</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">50k+</div>
+                    <div class="text-sm text-text-muted font-medium uppercase tracking-wider">Guests Hosted</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">130+</div>
+                    <div class="text-sm text-text-muted font-medium uppercase tracking-wider">Platforms Synced</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 max-w-7xl mx-auto px-6 md:px-12">
+        <div class="text-center max-w-3xl mx-auto mb-20 relative">
+            <div class="absolute -top-10 -right-10 md:right-0 rotate-12 hidden md:block opacity-70">
+                <span class="bg-accent/10 text-accent font-mono text-xs px-3 py-1 rounded-full border border-accent/20">The 10-unit bottleneck</span>
+                <svg class="w-8 h-8 text-accent absolute -bottom-6 left-4 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+
+            <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tighter">The "Dead Zone" of STRs.</h2>
+            <p class="text-xl text-text-muted font-light leading-relaxed">You proved the model, but now the business runs you. Hitting 5-30 units is where operators break if they don't have scalable systems.</p>
+        </div>
+        
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="hidden md:block absolute top-1/2 left-10 right-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-y-1/2 z-0"></div>
+
+            <div class="card-glass p-10 rounded-[2rem] relative z-10 hover:-translate-y-2 transition-transform duration-500 group overflow-hidden">
+                <div class="text-[8rem] font-black text-white/[0.02] absolute -bottom-10 -right-4 pointer-events-none group-hover:text-white/[0.04] transition-colors">01</div>
+                <div class="w-14 h-14 rounded-2xl bg-[#FF5F56]/10 border border-[#FF5F56]/20 flex items-center justify-center text-[#FF5F56] text-2xl mb-8 relative z-10 shadow-[0_0_15px_rgba(255,95,86,0.15)]">
+                    <i class="ph-fill ph-clock-countdown"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Manual Chaos</h3>
+                <p class="text-text-muted text-base leading-relaxed relative z-10">Guest messaging, cleaning schedules, and maintenance are eating your days. You're putting out fires instead of building.</p>
+            </div>
+            
+            <div class="card-glass p-10 rounded-[2rem] relative z-10 hover:-translate-y-2 transition-transform duration-500 group overflow-hidden md:mt-12">
+                <div class="text-[8rem] font-black text-white/[0.02] absolute -bottom-10 -right-4 pointer-events-none group-hover:text-white/[0.04] transition-colors">02</div>
+                <div class="w-14 h-14 rounded-2xl bg-[#FFBD2E]/10 border border-[#FFBD2E]/20 flex items-center justify-center text-[#FFBD2E] text-2xl mb-8 relative z-10 shadow-[0_0_15px_rgba(255,189,46,0.15)]">
+                    <i class="ph-fill ph-chart-line-down"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Thin Margins</h3>
+                <p class="text-text-muted text-base leading-relaxed relative z-10">Pricing incorrectly based on intuition, and paying too much for a fragmented "Frankenstein" software stack.</p>
+            </div>
+            
+            <div class="card-glass p-10 rounded-[2rem] relative z-10 hover:-translate-y-2 transition-transform duration-500 group overflow-hidden">
+                <div class="text-[8rem] font-black text-white/[0.02] absolute -bottom-10 -right-4 pointer-events-none group-hover:text-white/[0.04] transition-colors">03</div>
+                <div class="w-14 h-14 rounded-2xl bg-[#27C93F]/10 border border-[#27C93F]/20 flex items-center justify-center text-[#27C93F] text-2xl mb-8 relative z-10 shadow-[0_0_15px_rgba(39,201,63,0.15)]">
+                    <i class="ph-fill ph-lock-key"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Growth Ceiling</h3>
+                <p class="text-text-muted text-base leading-relaxed relative z-10">You can't source new deals, pitch investors, or meet landlords because you are trapped acting as 24/7 customer support.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-navy-800/20 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">The Complete Operating System.</h2>
+                    <p class="text-xl text-text-muted font-light">Not just a course. The exact infrastructure, software, and community we use daily.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[340px]">
+                
+                <div class="card-glass rounded-[2rem] p-0 col-span-1 md:col-span-2 md:row-span-2 relative overflow-hidden group border-t border-l border-white/10 flex flex-col">
+                    <div class="p-8 pb-0 relative z-20 w-4/5">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-xl">
+                                <i class="ph-fill ph-video-camera"></i>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-accent">Core Program</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3 text-white">12-Week Operator Masterclass</h3>
+                        <p class="text-text-muted text-lg font-light max-w-md">From structuring corporate deals to hiring your first VA. The exact A-Z video playbook taught by active operators.</p>
+                    </div>
+                    
+                    <div class="mt-auto relative w-full h-[65%] bg-[#050B14] border-t border-white/10 rounded-b-[2rem] overflow-hidden">
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#050B14] group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
+                            <div class="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,1)_25%,rgba(255,255,255,1)_50%,transparent_50%,transparent_75%,rgba(255,255,255,1)_75%,rgba(255,255,255,1)_100%)] bg-[length:20px_20px]"></div>
+                        </div>
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050B14] via-[#050B14]/40 to-transparent"></div>
+                        
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div class="absolute inset-0 bg-accent/30 rounded-full blur-xl animate-pulse"></div>
+                            <button class="relative w-20 h-20 rounded-full bg-accent/90 flex items-center justify-center shadow-[0_0_40px_rgba(0,229,255,0.4)] backdrop-blur-md cursor-pointer hover:scale-110 transition-transform border border-white/30 text-navy-900">
+                                <i class="ph-fill ph-play text-3xl ml-1.5"></i>
+                            </button>
+                        </div>
+
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent z-20 flex flex-col justify-end">
+                            <div class="flex items-center justify-between text-[11px] font-bold text-white mb-2">
+                                <span class="bg-black/50 px-2 py-1 rounded backdrop-blur">14:20</span>
+                                <span class="bg-black/50 px-2 py-1 rounded backdrop-blur">45:00</span>
+                            </div>
+                            <div class="w-full h-2 bg-white/20 rounded-full overflow-hidden flex relative cursor-pointer">
+                                <div class="absolute top-0 left-0 h-full bg-white/30 w-1/2"></div>
+                                <div class="absolute top-0 left-0 h-full bg-accent w-1/3 relative z-10 shadow-[0_0_10px_rgba(0,229,255,0.8)]">
+                                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg transform translate-x-1/2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass rounded-[2rem] p-8 relative overflow-hidden group border-t border-l border-white/10">
+                    <div class="relative z-20">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded border border-white/10 backdrop-blur-md">Included</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Base360 Access</h3>
+                        <p class="text-text-muted text-sm font-light leading-relaxed">Run your operations on AI autopilot. Full access granted during the program.</p>
+                    </div>
+                    <div class="absolute -bottom-8 -right-8 w-[120%] h-[160px] bg-[#0F172A] rounded-tl-2xl border border-white/10 p-5 shadow-2xl group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-500">
+                         <div class="flex items-center gap-3 mb-5 border-b border-white/5 pb-3">
+                             <div class="w-8 h-8 rounded bg-gradient-to-br from-blue-500 to-accent flex items-center justify-center text-white text-xs"><i class="ph-bold ph-robot"></i></div>
+                             <div>
+                                 <div class="h-2.5 w-24 bg-white/80 rounded mb-1.5"></div>
+                                 <div class="h-1.5 w-16 bg-white/30 rounded"></div>
+                             </div>
+                         </div>
+                         <div class="space-y-2">
+                             <div class="h-2 w-full bg-white/5 rounded"></div>
+                             <div class="h-2 w-4/5 bg-white/5 rounded"></div>
+                             <div class="h-2 w-full bg-white/5 rounded"></div>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="card-glass rounded-[2rem] p-8 relative overflow-hidden group border-t border-l border-white/10 bg-gradient-to-br from-[#1E293B]/80 to-[#0F172A]">
+                    <div class="relative z-20">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
+                            <i class="ph-fill ph-users-three"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Private Network</h3>
+                        <p class="text-text-muted text-sm font-light">Direct access to the founders and 150+ active operators.</p>
+                    </div>
+                    <div class="absolute bottom-4 left-6 right-6 bg-[#0B1120] rounded-xl border border-white/5 p-3 shadow-xl transform rotate-2 group-hover:rotate-0 transition-transform">
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 rounded-full border border-white/10 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-[10px] font-bold text-white shrink-0">MB</div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-xs font-bold text-white">Michael B.</span>
+                                    <span class="text-[9px] bg-purple-500/20 text-purple-300 px-1.5 rounded font-medium">Founder</span>
+                                </div>
+                                <p class="text-[10px] text-gray-400 leading-tight">Just dropped the new corporate lease template in #resources. Let's scale! 🚀</p>
+                            </div>
+                        </div>
+                        <div class="absolute -top-3 -right-3 flex -space-x-2 p-1 bg-[#1E293B] rounded-full border border-white/10">
+                            <div class="w-5 h-5 rounded-full border border-[#1E293B] bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-[7px] font-bold text-white">RY</div>
+                            <div class="w-5 h-5 rounded-full border border-[#1E293B] bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center text-[7px] font-bold text-white">SJ</div>
+                            <div class="w-5 h-5 rounded-full border border-[#1E293B] bg-accent/20 flex items-center justify-center text-[8px] text-accent font-bold">+12</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass rounded-[2rem] p-0 col-span-1 md:col-span-3 relative overflow-hidden group border-t border-l border-white/10 flex flex-col md:flex-row items-center">
+                    <div class="p-8 md:p-12 relative z-20 md:w-1/2">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 text-2xl mb-6">
+                            <i class="ph-fill ph-files"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3 text-white">Plug & Play SOPs</h3>
+                        <p class="text-text-muted text-lg font-light">Stop typing from scratch. Get our exact legal contracts, hiring forms, cleaning checklists, and automated message templates instantly.</p>
+                    </div>
+                    
+                    <div class="relative h-64 md:h-full w-full md:w-1/2 flex items-center justify-center p-8">
+                        <div class="absolute z-10 w-48 bg-white rounded-lg shadow-2xl p-4 transform -rotate-6 group-hover:-rotate-12 transition-transform duration-500 border border-gray-200">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="ph-fill ph-file-text text-blue-500 text-lg"></i>
+                                <div class="h-2 w-20 bg-gray-200 rounded"></div>
+                            </div>
+                            <div class="space-y-1.5">
+                                <div class="h-1.5 w-full bg-gray-100 rounded"></div>
+                                <div class="h-1.5 w-5/6 bg-gray-100 rounded"></div>
+                                <div class="h-1.5 w-4/6 bg-gray-100 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="absolute z-20 w-56 bg-[#0F172A] rounded-lg shadow-[0_20px_40px_rgba(0,0,0,0.6)] p-5 transform rotate-3 group-hover:rotate-6 transition-transform duration-500 border border-white/10 ml-20 mt-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-accent/20 flex items-center justify-center"><i class="ph-bold ph-check text-accent text-[10px]"></i></div>
+                                    <div class="h-2 w-24 bg-white/20 rounded"></div>
+                                </div>
+                            </div>
+                            <div class="p-2 bg-white/5 rounded border border-white/5 flex items-center gap-2 mb-2">
+                                <div class="w-3 h-3 rounded-full bg-green-500/50"></div> <div class="h-1.5 w-16 bg-white/20 rounded"></div>
+                            </div>
+                            <div class="p-2 bg-white/5 rounded border border-white/5 flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-white/20"></div> <div class="h-1.5 w-24 bg-white/20 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 max-w-7xl mx-auto px-6 md:px-12 border-t border-white/5 relative z-10">
+        <div class="flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2 relative">
+                <div class="absolute -top-6 -left-6 w-32 h-32 bg-accent/10 rounded-full blur-[40px] pointer-events-none"></div>
+                
+                <div class="relative w-full aspect-square md:aspect-[4/5] rounded-[2.5rem] p-2 bg-gradient-to-br from-white/10 to-transparent">
+                    <div class="w-full h-full rounded-[2rem] overflow-hidden relative group bg-[#0F172A]">
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-tr from-slate-800 to-slate-900 flex flex-col items-center justify-center text-slate-500 group-hover:scale-105 transition-transform duration-700">
+                            <i class="ph-fill ph-image text-5xl mb-3 opacity-50"></i>
+                            <span class="text-xs font-bold tracking-widest uppercase opacity-50">Insert Founders Photo in Figma</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050B14] via-[#050B14]/40 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-accent/20 text-accent text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded border border-accent/20 backdrop-blur-md">The Founders</span>
+                            </div>
+                            <div class="text-white font-black text-2xl tracking-tight">Raouf Yousfi & Michael Buggy</div>
+                            <div class="text-white/70 text-sm font-medium mt-1">Founders, The Flex & Base360</div>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-10 -right-8 bg-[#0F172A] border border-white/10 rounded-2xl p-4 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl flex items-center gap-4 z-20 transform hover:-translate-y-1 transition-transform hidden md:flex">
+                        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center border border-accent/20">
+                            <i class="ph-fill ph-globe-hemisphere-west text-2xl text-accent"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-white">7</div>
+                            <div class="text-[10px] text-text-muted font-bold uppercase tracking-widest">Global Cities</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2">
+                <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">We aren't gurus.<br>We are operators.</h2>
+                <div class="space-y-6 text-text-muted text-lg leading-relaxed font-light">
+                    <p>We built <strong class="text-white">The Flex</strong> from zero to operating across 7 countries. Along the way, we realized existing software was fragmented, so we built <strong class="text-white">Base360</strong> to run our own properties on AI autopilot.</p>
+                    <p>Now, we're opening our internal playbook. Flex Academy isn't a collection of theories. It's the exact blueprint, tools, and community we wish we had when we were stuck at 10 units.</p>
+                    <div class="p-6 bg-white/5 border-l-4 border-accent rounded-r-xl italic relative">
+                        <i class="ph-fill ph-quotes text-3xl text-white/10 absolute top-2 right-4"></i>
+                        <p class="font-medium text-white">"Our goal is to help you build an empire without the trial and error. You bring the ambition, we provide the operating system."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-navy-800/30 border-y border-white/5">
+        <div class="max-w-6xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">Who this is actually for.</h2>
+                <p class="text-text-muted text-lg">We protect the quality of our community fiercely.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-green-900/10 border border-green-500/20 rounded-3xl p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/5 rounded-full blur-[30px]"></div>
+                    <h3 class="text-xl font-bold text-green-400 mb-6 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center"><i class="ph-bold ph-check"></i></div>
+                        This IS for you if:
+                    </h3>
+                    <ul class="space-y-5">
+                        <li class="flex items-start gap-4">
+                            <i class="ph-bold ph-check text-green-500 mt-1"></i>
+                            <span class="text-gray-300 font-light leading-relaxed">Ambitious operators currently managing <strong class="text-white">5-30 units</strong> looking to scale systematically.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="ph-bold ph-check text-green-500 mt-1"></i>
+                            <span class="text-gray-300 font-light leading-relaxed">Side-hustlers with a few units ready to transition to full-time business owners.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="ph-bold ph-check text-green-500 mt-1"></i>
+                            <span class="text-gray-300 font-light leading-relaxed">Property professionals (agents, developers) adding an STR arm to their portfolio.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-900/10 border border-red-500/20 rounded-3xl p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-[30px]"></div>
+                    <h3 class="text-xl font-bold text-red-400 mb-6 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center"><i class="ph-bold ph-x"></i></div>
+                        This is NOT for you if:
+                    </h3>
+                    <ul class="space-y-5">
+                        <li class="flex items-start gap-4">
+                            <i class="ph-bold ph-x text-red-500 mt-1"></i>
+                            <span class="text-gray-300 font-light leading-relaxed">Get-rich-quick seekers looking for a "magic pill" or overnight success.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="ph-bold ph-x text-red-500 mt-1"></i>
+                            <span class="text-gray-300 font-light leading-relaxed">People with 0 units who are unwilling to put in the hard operational groundwork.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="ph-bold ph-x text-red-500 mt-1"></i>
+                            <span class="text-gray-300 font-light leading-relaxed">Those looking for 100% "passive" income without building underlying business systems.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 max-w-5xl mx-auto px-6 md:px-12">
+        <div class="bg-gradient-to-br from-[#0F172A] to-[#050B14] border border-white/10 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <h2 class="text-4xl md:text-5xl font-black mb-6 relative z-10 tracking-tight">Ready to build a scalable STR business?</h2>
+            <p class="text-lg text-text-muted mb-12 max-w-2xl mx-auto relative z-10 font-light">Let's map out your growth plan. No high-pressure sales tactics, just a genuine operator-to-operator strategy session to see if we're a fit.</p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
+                <button onclick="openModal()" class="w-full sm:w-auto bg-accent hover:bg-white text-navy-900 font-bold text-lg px-10 py-5 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] transform hover:-translate-y-1 inline-flex items-center justify-center gap-3">
+                    Book Your Strategy Call <i class="ph-bold ph-arrow-right"></i>
+                </button>
+                <button class="w-full sm:w-auto text-white hover:text-accent font-medium transition-colors inline-flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-envelope-simple"></i> Get the Free Checklist
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="ctaModal" class="fixed inset-0 bg-navy-900/95 backdrop-blur-xl z-[100] hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 overflow-y-auto">
+        <div class="bg-[#0B1120] border border-white/10 rounded-[2rem] w-full max-w-4xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,0,0.5)] transform scale-95 transition-transform duration-300 flex flex-col md:flex-row my-8" id="modalContent">
+            
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full w-10 h-10 flex items-center justify-center transition-colors z-20">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+
+            <div class="hidden md:flex md:w-2/5 bg-[#151C2C] p-10 flex-col justify-between relative overflow-hidden border-r border-white/5">
+                <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none"></div>
+                
+                <div>
+                    <div class="flex items-center gap-2 mb-8">
+                        <div class="w-6 h-6 rounded bg-white flex items-center justify-center text-navy-900 font-bold text-xs">F</div>
+                        <span class="font-bold text-white text-sm">Flex Academy</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 leading-snug">You are one system away from scaling.</h3>
+                    <p class="text-text-muted text-sm leading-relaxed mb-8">This strategy session is designed to diagnose your current bottleneck. No high-pressure sales, just pure operator-to-operator strategy.</p>
+                </div>
+
+                <div class="bg-white/5 rounded-xl p-5 border border-white/5 backdrop-blur-sm">
+                    <div class="flex items-center gap-1 text-accent mb-3">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-sm text-gray-300 italic mb-4">" Implementing the Flex Playbook alongside Base360 allowed me to step out of the daily operations and grow my portfolio from 8 to 22 units in 6 months."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full border border-white/10 bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-xs font-bold text-navy-900">SJ</div>
+                        <div>
+                            <div class="text-sm font-bold text-white">Sarah Jenkins</div>
+                            <div class="text-xs text-text-muted">Operator, London</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-3/5 p-8 md:p-12 relative flex flex-col justify-center min-h-[500px]">
+                
+                <div class="absolute top-0 left-0 w-full h-1 bg-white/5">
+                    <div id="progressBar" class="h-full bg-accent w-1/3 transition-all duration-500 shadow-[0_0_10px_rgba(0,229,255,0.5)]"></div>
+                </div>
+
+                <div id="step1" class="form-step animate-fade-in-up">
+                    <span class="text-accent text-xs font-bold uppercase tracking-widest mb-3 block flex items-center gap-2">
+                        <span class="w-5 h-px bg-accent"></span> Step 1 of 3
+                    </span>
+                    <h3 class="text-3xl font-bold mb-8 text-white tracking-tight">How many units do you currently manage?</h3>
+                    
+                    <div class="space-y-3">
+                        <label class="w-full text-left p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-accent/50 transition-all text-white font-medium flex justify-between items-center group cursor-pointer relative overflow-hidden">
+                            <input type="radio" name="units" class="absolute opacity-0" onclick="nextStep(2)">
+                            <span class="relative z-10">0 (Just starting)</span>
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-500 group-hover:border-accent flex items-center justify-center transition-colors"></div>
+                        </label>
+                        
+                        <label class="w-full text-left p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-accent/50 transition-all text-white font-medium flex justify-between items-center group cursor-pointer relative">
+                            <input type="radio" name="units" class="absolute opacity-0" onclick="nextStep(2)">
+                            <span class="relative z-10">1 - 4 units</span>
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-500 group-hover:border-accent flex items-center justify-center transition-colors"></div>
+                        </label>
+                        
+                        <label class="w-full text-left p-4 rounded-xl border border-accent/50 bg-accent/10 hover:bg-accent/20 transition-all text-white font-medium flex justify-between items-center group cursor-pointer relative shadow-[0_0_15px_rgba(0,229,255,0.05)]">
+                            <input type="radio" name="units" class="absolute opacity-0" onclick="nextStep(2)">
+                            <div class="relative z-10 flex flex-col">
+                                <span>5 - 30 units</span>
+                                <span class="text-xs text-accent font-normal mt-0.5">Perfect fit for our systems</span>
+                            </div>
+                            <div class="w-5 h-5 rounded-full border-2 border-accent flex items-center justify-center transition-colors">
+                                <div class="w-2.5 h-2.5 bg-accent rounded-full"></div>
+                            </div>
+                        </label>
+                        
+                        <label class="w-full text-left p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-accent/50 transition-all text-white font-medium flex justify-between items-center group cursor-pointer relative">
+                            <input type="radio" name="units" class="absolute opacity-0" onclick="nextStep(2)">
+                            <span class="relative z-10">31+ units</span>
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-500 group-hover:border-accent flex items-center justify-center transition-colors"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="step2" class="form-step hidden">
+                    <button onclick="prevStep(1)" class="text-text-muted hover:text-white text-sm flex items-center gap-1 mb-6 transition-colors">
+                        <i class="ph-bold ph-arrow-left"></i> Back
+                    </button>
+                    <span class="text-accent text-xs font-bold uppercase tracking-widest mb-3 block flex items-center gap-2">
+                        <span class="w-5 h-px bg-accent"></span> Step 2 of 3
+                    </span>
+                    <h3 class="text-3xl font-bold mb-2 text-white tracking-tight">Let's get your details.</h3>
+                    <p class="text-text-muted text-sm mb-8 font-light">Where should we send the calendar invite?</p>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Full Name</label>
+                            <input type="text" placeholder="e.g. John Doe" class="w-full bg-[#050B14] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Work Email</label>
+                            <input type="email" placeholder="john@company.com" class="w-full bg-[#050B14] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-600">
+                        </div>
+                        
+                        <div class="pt-4">
+                            <button onclick="nextStep(3)" class="w-full bg-white hover:bg-accent text-navy-900 font-bold py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_14px_0_rgba(255,255,255,0.1)] hover:shadow-[0_4px_20px_0_rgba(0,229,255,0.4)] transform hover:-translate-y-0.5">
+                                Select a Time <i class="ph-bold ph-calendar-blank"></i>
+                            </button>
+                            <p class="text-center text-xs text-text-muted mt-4"><i class="ph-fill ph-lock"></i> Your information is secure.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step3" class="form-step hidden text-center py-6">
+                    <div class="relative w-24 h-24 mx-auto mb-8">
+                        <div class="absolute inset-0 bg-accent/20 rounded-full animate-ping"></div>
+                        <div class="relative w-full h-full bg-accent/10 border border-accent/30 rounded-full flex items-center justify-center backdrop-blur-sm">
+                            <i class="ph-fill ph-check text-5xl text-accent"></i>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-3xl font-black mb-3 text-white tracking-tight">You're almost there!</h3>
+                    <p class="text-text-muted mb-10 font-light text-lg">Please select a time on the calendar that works best for you.</p>
+                    
+                    <div class="bg-[#151C2C] border border-white/5 rounded-2xl p-6 text-left shadow-lg cursor-pointer hover:border-accent/30 transition-colors group">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-bold text-white flex items-center gap-2">
+                                <i class="ph-bold ph-calendar text-accent"></i> Strategy Call with Base360 Team
+                            </h4>
+                            <span class="text-xs bg-white/10 text-white px-2 py-1 rounded">30 Min</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-gray-400 mb-4">
+                            <i class="ph-fill ph-video-camera"></i> Zoom Video Link provided upon booking.
+                        </div>
+                        <button class="w-full bg-accent/10 text-accent font-bold py-3 rounded-xl border border-accent/20 group-hover:bg-accent group-hover:text-navy-900 transition-colors">
+                            Open Calendar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const modal = document.getElementById('ctaModal');
+        const modalContent = document.getElementById('modalContent');
+        const progressBar = document.getElementById('progressBar');
+        
+        function openModal() {
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            showStep(1); 
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); 
+        }
+
+        function showStep(stepIndex) {
+            document.querySelectorAll('.form-step').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('animate-fade-in-up');
+            });
+            
+            const targetStep = document.getElementById('step' + stepIndex);
+            targetStep.classList.remove('hidden');
+            void targetStep.offsetWidth; 
+            targetStep.classList.add('animate-fade-in-up');
+            
+            if(stepIndex === 1) progressBar.style.width = '33%';
+            if(stepIndex === 2) progressBar.style.width = '66%';
+            if(stepIndex === 3) progressBar.style.width = '100%';
+        }
+
+        function nextStep(stepIndex) { showStep(stepIndex); }
+        function prevStep(stepIndex) { showStep(stepIndex); }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+    </script>
+</body>
+</html>
